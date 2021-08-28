@@ -22,6 +22,29 @@ public class Conversions {
     }
 
     /**
+     * @param counts Talon Counts
+     * @param gearRatio Gear Ratio between Talon and Mechanism
+     * @return Degrees of Rotation of Mechanism
+     */
+    public static double talonToDegrees(double counts, double gearRatio) {
+        counts %= 4096;
+        /*if(counts < 0){
+            counts += 4096;
+        }*/
+        return counts * (360.0 / (gearRatio * 4096.0));
+    }
+
+    /**
+     * @param degrees Degrees of rotation of Mechanism
+     * @param gearRatio Gear Ratio between Talon and Mechanism
+     * @return Falcon Counts
+     */
+    public static double degreesToTalon(double degrees, double gearRatio) {
+        double ticks =  degrees / (360.0 / (gearRatio * 4096.0));
+        return ticks;
+    }
+
+    /**
      * @param velocityCounts Falcon Velocity Counts
      * @param gearRatio Gear Ratio between Falcon and Mechanism (set to 1 for Falcon RPM)
      * @return RPM of Mechanism
